@@ -31,14 +31,17 @@ target_groups = {
       path = "/"
     }
 
-    targets = [
-      {
-        target_id = aws_instance.web.id
-        port      = 80
-      }
-    ]
+   
+}
+    
   }
+}
+ 
+ resource "aws_lb_target_group_attachment" "web" {
+  target_group_arn = module.alb.target_groups["tg1"].arn
+  target_id        = aws_instance.web.id
+  port             = 80
 }
 
   
-}
+

@@ -22,6 +22,7 @@ resource "aws_instance" "custom" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   key_name      = "HP"
+   associate_public_ip_address = true
     vpc_security_group_ids = [aws_security_group.main.id]
   
 
@@ -37,6 +38,7 @@ resource "null_resource" "remote_provisioner" {
     user = "ubuntu"
      private_key =file("C:/Users/HP/.ssh/HP")
     host = aws_instance.custom.public_ip
+     timeout     = "2m"
     }
 
     provisioner "remote-exec" {
